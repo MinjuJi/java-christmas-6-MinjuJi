@@ -23,6 +23,8 @@ public class Event {
     private static final int MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE = 20_000;
     private static final int MIN_TOTAL_BENEFIT_FOR_TREE_BADGE = 10_000;
     private static final int MIN_TOTAL_BENEFIT_FOR_STAR_BADGE = 5_000;
+    private static final int NO_BENEFIT = 0;
+    private static final int CHAMPAGNE_PRICE = 25_000;
 
     public int calculateChristmasDiscountAmount(int reservation) {
         int discountAmount = MIN_DISCOUNT;
@@ -81,7 +83,8 @@ public class Event {
         return totalPrice;
     }
 
-    public void offerBadgeByTotalBenefit(int totalBenefit, Badge badge) {
+    public void offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne, Badge badge) {
+        int totalBenefit = calculateTotalBenefit(totalDiscount, isChampagne);
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE) {
             badge = new Badge("산타");
             return;
@@ -96,4 +99,14 @@ public class Event {
         }
     }
 
+    public int calculateTotalBenefit(int totalDiscount, boolean isChampagne) {
+        int totalBenefit = NO_BENEFIT;
+        if (isChampagne == true) {
+            totalBenefit = totalDiscount + CHAMPAGNE_PRICE;
+        }
+        if (isChampagne == false) {
+            totalBenefit = totalDiscount;
+        }
+        return totalBenefit;
+    }
 }
