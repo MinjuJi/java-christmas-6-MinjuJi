@@ -1,5 +1,6 @@
 package service;
 
+import domain.Badge;
 import domain.Menu;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,6 +19,10 @@ public class Event {
     private static final int NO_DISCOUNT = 0;
     private static final int CHRISTMAS_DAY = 25;
     private static final int NO_ORDER = 0;
+    private static final int MIN_TOTAL_PRICE_FOR_GIFT = 120_000;
+    private static final int MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE = 20_000;
+    private static final int MIN_TOTAL_BENEFIT_FOR_TREE_BADGE = 10_000;
+    private static final int MIN_TOTAL_BENEFIT_FOR_STAR_BADGE = 5_000;
 
     public int calculateChristmasDiscountAmount(int reservation) {
         int discountAmount = MIN_DISCOUNT;
@@ -65,7 +70,7 @@ public class Event {
 
     public boolean offerGiftByTotalPrice(Map<Menu, Integer> order) {
         int totalPrice = calculateTotalPriceBeforeDiscount(order);
-        return totalPrice >= 120_000;
+        return totalPrice >= MIN_TOTAL_PRICE_FOR_GIFT;
     }
 
     public int calculateTotalPriceBeforeDiscount(Map<Menu, Integer> order) {
@@ -74,6 +79,21 @@ public class Event {
             totalPrice += menu.getPrice() * order.get(menu);
         }
         return totalPrice;
+    }
+
+    public void offerBadgeByTotalBenefit(int totalBenefit, Badge badge) {
+        if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE) {
+            badge = new Badge("산타");
+            return;
+        }
+        if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_TREE_BADGE) {
+            badge = new Badge("트리");
+            return;
+        }
+        if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_STAR_BADGE) {
+            badge = new Badge("별");
+            return;
+        }
     }
 
 }
