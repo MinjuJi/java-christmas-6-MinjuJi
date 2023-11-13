@@ -12,7 +12,6 @@ public class Event {
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
     private static final int WEEK_DISCOUNT = 2_023;
-    private static final int NO_DISCOUNT = 0;
 
     public int calculateChristmasDiscountAmount(int reservation) {
         int discountAmount = MIN_DISCOUNT;
@@ -30,7 +29,7 @@ public class Event {
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             return countDessert(order) * WEEK_DISCOUNT;
         }
-        return NO_DISCOUNT;
+        return countMain(order) * WEEK_DISCOUNT;
     }
 
     public int countDessert(Map<String, Integer> order) {
