@@ -24,9 +24,9 @@ public class EventTest {
         int case3 = EXPIRED_DAY;
 
         // when
-        int result1 = event.calculateChristmasDiscountAmount(case1);
-        int result2 = event.calculateChristmasDiscountAmount(case2);
-        int result3 = event.calculateChristmasDiscountAmount(case3);
+        int result1 = event.calculateChristmasDiscount(case1);
+        int result2 = event.calculateChristmasDiscount(case2);
+        int result3 = event.calculateChristmasDiscount(case3);
 
         // then
         assertThat(result1).isEqualTo(MIN_DISCOUNT);

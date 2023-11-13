@@ -9,7 +9,7 @@ import java.util.Map;
 public class Event {
     private static final int MIN_DISCOUNT = 1_000;
     private static final int ADDITIONAL_DISCOUNT = 100;
-    private static final int START_DAY = 2;
+    private static final int START_DAY = 1;
     private static final int END_DAY = 25;
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
@@ -26,17 +26,14 @@ public class Event {
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
 
-    public int calculateChristmasDiscountAmount(int reservationDay) {
-        int discountAmount = MIN_DISCOUNT;
+    public int calculateChristmasDiscount(int reservationDay) {
         if (reservationDay <= END_DAY) {
-            for (int day = START_DAY; day <= reservationDay; day++) {
-                discountAmount += ADDITIONAL_DISCOUNT;
-            }
+            return MIN_DISCOUNT + (reservationDay - START_DAY) * ADDITIONAL_DISCOUNT;
         }
-        return discountAmount;
+        return NO_DISCOUNT;
     }
 
-    public int calculateWeekDiscountAmount(int day, Map<Menu, Integer> order) {
+    public int calculateWeekDiscount(int day, Map<Menu, Integer> order) {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
