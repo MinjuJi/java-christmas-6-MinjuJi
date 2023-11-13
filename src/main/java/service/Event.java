@@ -63,6 +63,11 @@ public class Event {
         return NO_DISCOUNT;
     }
 
+    public boolean offerGiftByTotalPrice(Map<Menu, Integer> order) {
+        int totalPrice = calculateTotalPriceBeforeDiscount(order);
+        return totalPrice >= 120_000;
+    }
+
     public int calculateTotalPriceBeforeDiscount(Map<Menu, Integer> order) {
         int totalPrice = NO_ORDER;
         for (Menu menu : order.keySet()) {
