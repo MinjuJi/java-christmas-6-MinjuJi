@@ -1,13 +1,12 @@
 package domain;
 
 import java.util.Map;
-import java.util.Set;
 
 public class Reservation {
     private int date;
-    private Map<String, Integer> order;
+    private Map<Menu, Integer> order;
 
-    public Reservation(int date, Map<String, Integer> order) {
+    public Reservation(int date, Map<Menu, Integer> order) {
         this.date = date;
         this.order = order;
     }
@@ -16,7 +15,7 @@ public class Reservation {
         return date;
     }
 
-    public Set<Map.Entry<String, Integer>> getOrder() {
-        return order.entrySet();
+    public Map<Menu, Integer> getOrder() {
+        return order;
     }
 }
