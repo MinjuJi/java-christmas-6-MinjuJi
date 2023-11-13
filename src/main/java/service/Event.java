@@ -44,18 +44,18 @@ public class Event {
 
     public int countDessert(Map<Menu, Integer> order) {
         int dessertCount = COUNT_ZERO;
-        dessertCount += order.getOrDefault("초코케이크", COUNT_ZERO);
-        dessertCount += order.getOrDefault("아이스크림", COUNT_ZERO);
+        dessertCount += order.getOrDefault(Menu.초코케이크, COUNT_ZERO);
+        dessertCount += order.getOrDefault(Menu.아이스크림, COUNT_ZERO);
         return dessertCount;
     }
 
     public int countMain(Map<Menu, Integer> order) {
-        int dessertCount = COUNT_ZERO;
-        dessertCount += order.getOrDefault("티본스테이크", COUNT_ZERO);
-        dessertCount += order.getOrDefault("바비큐립", COUNT_ZERO);
-        dessertCount += order.getOrDefault("해산물파스타", COUNT_ZERO);
-        dessertCount += order.getOrDefault("크리스마스파스타", COUNT_ZERO);
-        return dessertCount;
+        int mainCount = COUNT_ZERO;
+        mainCount += order.getOrDefault(Menu.티본스테이크, COUNT_ZERO);
+        mainCount += order.getOrDefault(Menu.바비큐립, COUNT_ZERO);
+        mainCount += order.getOrDefault(Menu.해산물파스타, COUNT_ZERO);
+        mainCount += order.getOrDefault(Menu.크리스마스파스타, COUNT_ZERO);
+        return mainCount;
     }
 
     public int calculateSpecialDiscount(int day) {
