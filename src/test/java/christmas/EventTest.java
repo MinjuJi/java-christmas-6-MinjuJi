@@ -59,4 +59,29 @@ public class EventTest {
         assertThat(result1).isEqualTo(WEEKDAY_DISCOUNT);
         assertThat(result2).isEqualTo(WEEKEND_DISCOUNT);
     }
+
+    @DisplayName("일요일 또는 크리스마스에 1,000원 할인한다.")
+    @Test
+    void 특별_할인_금액_계산_테스트() {
+        // given
+        final int CHRISTMAS_DAY = 25;
+        final int SUNDAY = 31;
+        final int SATURDAY = 30;
+        final int SPECIAL_DISCOUNT = 1_000;
+        final int NO_DISCOUNT = 0;
+        int case1 = CHRISTMAS_DAY;
+        int case2 = SUNDAY;
+        int case3 = SATURDAY;
+
+        // when
+        int result1 = event.calculateSpecialDiscount(case1);
+        int result2 = event.calculateSpecialDiscount(case2);
+        int result3 = event.calculateSpecialDiscount(case3);
+
+        // then
+        assertThat(result1).isEqualTo(SPECIAL_DISCOUNT);
+        assertThat(result2).isEqualTo(SPECIAL_DISCOUNT);
+        assertThat(result3).isEqualTo(NO_DISCOUNT);
+    }
+
 }
