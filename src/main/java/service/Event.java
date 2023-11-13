@@ -109,4 +109,9 @@ public class Event {
         }
         return totalBenefit;
     }
+
+    public int calculateExpectedPaymentAmount(Map<Menu, Integer> order, int totalDiscount) {
+        int totalPriceBeforeDiscount = calculateTotalPriceBeforeDiscount(order);
+        return totalPriceBeforeDiscount - totalDiscount;
+    }
 }
