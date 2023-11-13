@@ -28,16 +28,24 @@ public class Event {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
-            return CountDessert(order) * WEEK_DISCOUNT;
+            return countDessert(order) * WEEK_DISCOUNT;
         }
         return NO_DISCOUNT;
     }
 
-    public int CountDessert(Map<String, Integer> order) {
+    public int countDessert(Map<String, Integer> order) {
         int dessertCount = 0;
         dessertCount += order.getOrDefault("초코케이크", 0);
         dessertCount += order.getOrDefault("아이스크림", 0);
         return dessertCount;
     }
 
+    public int countMain(Map<String, Integer> order) {
+        int dessertCount = 0;
+        dessertCount += order.getOrDefault("티본스테이크", 0);
+        dessertCount += order.getOrDefault("바비큐립", 0);
+        dessertCount += order.getOrDefault("해산물파스타", 0);
+        dessertCount += order.getOrDefault("크리스마스파스타", 0);
+        return dessertCount;
+    }
 }
