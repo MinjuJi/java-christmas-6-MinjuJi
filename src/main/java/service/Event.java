@@ -24,11 +24,11 @@ public class Event {
         return discountAmount;
     }
 
-    public int calculateWeekdayDiscountAmount(int day, int dessertCount) {
+    public int calculateWeekDiscountAmount(int day, Map<String, Integer> order) {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
-            return dessertCount * WEEK_DISCOUNT;
+            return CountDessert(order) * WEEK_DISCOUNT;
         }
         return NO_DISCOUNT;
     }
@@ -39,4 +39,5 @@ public class Event {
         dessertCount += order.getOrDefault("아이스크림", 0);
         return dessertCount;
     }
+
 }
