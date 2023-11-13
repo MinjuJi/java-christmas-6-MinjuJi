@@ -2,6 +2,7 @@ package service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Event {
     private static final int MIN_DISCOUNT = 1_000;
@@ -32,4 +33,10 @@ public class Event {
         return NO_DISCOUNT;
     }
 
+    public int CountDessert(Map<String, Integer> order) {
+        int dessertCount = 0;
+        dessertCount += order.getOrDefault("초코케이크", 0);
+        dessertCount += order.getOrDefault("아이스크림", 0);
+        return dessertCount;
+    }
 }
