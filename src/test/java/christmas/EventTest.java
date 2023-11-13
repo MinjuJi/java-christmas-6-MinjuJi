@@ -2,6 +2,9 @@ package christmas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import domain.Menu;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import service.Event;
@@ -34,4 +37,26 @@ public class EventTest {
         assertThat(result3).isEqualTo(NO_DISCOUNT);
     }
 
+    @DisplayName("평일에는 디저트 메뉴, 주말에는 메인 메뉴를 1개당 2,023원 할인한다.")
+    @Test
+    void 평일_주말_할인_금액_계산_테스트() {
+        // given
+        final int THURSDAY = 7;
+        final int Friday = 30;
+        final int WEEKDAY_DISCOUNT = 6_069;
+        final int WEEKEND_DISCOUNT = 4_046;
+        int case1 = THURSDAY;
+        int case2 = Friday;
+        final Map<Menu, Integer> order = new HashMap<>();
+        order.put(Menu.valueOf("초코케이크"), 3);
+        order.put(Menu.valueOf("크리스마스파스타"), 2);
+
+        // when
+        int result1 = event.calculateWeekDiscount(case1, order);
+        int result2 = event.calculateWeekDiscount(case2, order);
+
+        // then
+        assertThat(result1).isEqualTo(WEEKDAY_DISCOUNT);
+        assertThat(result2).isEqualTo(WEEKEND_DISCOUNT);
+    }
 }
