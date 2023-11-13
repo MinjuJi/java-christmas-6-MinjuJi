@@ -12,6 +12,10 @@ public class Event {
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
     private static final int WEEK_DISCOUNT = 2_023;
+    private static final int COUNT_ZERO = 0;
+    private static final int SPECIAL_DISCOUNT = 1_000;
+    private static final int NO_DISCOUNT = 0;
+    private static final int CHRISTMAS_DAY = 25;
 
     public int calculateChristmasDiscountAmount(int reservation) {
         int discountAmount = MIN_DISCOUNT;
@@ -33,18 +37,28 @@ public class Event {
     }
 
     public int countDessert(Map<String, Integer> order) {
-        int dessertCount = 0;
-        dessertCount += order.getOrDefault("초코케이크", 0);
-        dessertCount += order.getOrDefault("아이스크림", 0);
+        int dessertCount = COUNT_ZERO;
+        dessertCount += order.getOrDefault("초코케이크", COUNT_ZERO);
+        dessertCount += order.getOrDefault("아이스크림", COUNT_ZERO);
         return dessertCount;
     }
 
     public int countMain(Map<String, Integer> order) {
-        int dessertCount = 0;
-        dessertCount += order.getOrDefault("티본스테이크", 0);
-        dessertCount += order.getOrDefault("바비큐립", 0);
-        dessertCount += order.getOrDefault("해산물파스타", 0);
-        dessertCount += order.getOrDefault("크리스마스파스타", 0);
+        int dessertCount = COUNT_ZERO;
+        dessertCount += order.getOrDefault("티본스테이크", COUNT_ZERO);
+        dessertCount += order.getOrDefault("바비큐립", COUNT_ZERO);
+        dessertCount += order.getOrDefault("해산물파스타", COUNT_ZERO);
+        dessertCount += order.getOrDefault("크리스마스파스타", COUNT_ZERO);
         return dessertCount;
     }
+
+    public int calculateSpecialDiscount(int day) {
+        LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
+        DayOfWeek dayOfWeek = reservation.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.SUNDAY || reservation.getDayOfMonth() == CHRISTMAS_DAY) {
+            return SPECIAL_DISCOUNT;
+        }
+        return NO_DISCOUNT;
+    }
+
 }
