@@ -9,8 +9,8 @@ import java.util.Map;
 public class Event {
     private static final int MIN_DISCOUNT = 1_000;
     private static final int ADDITIONAL_DISCOUNT = 100;
-    private static final int EFFECTIVE_DATE = 1;
-    private static final int EXPIRATION_DATE = 25;
+    private static final int START_DAY = 2;
+    private static final int END_DAY = 25;
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
     private static final int WEEK_DISCOUNT = 2_023;
@@ -26,10 +26,10 @@ public class Event {
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
 
-    public int calculateChristmasDiscountAmount(int reservation) {
+    public int calculateChristmasDiscountAmount(int reservationDay) {
         int discountAmount = MIN_DISCOUNT;
-        if (reservation <= EXPIRATION_DATE) {
-            for (int date = EFFECTIVE_DATE; date <= reservation; date++) {
+        if (reservationDay <= END_DAY) {
+            for (int day = START_DAY; day <= reservationDay; day++) {
                 discountAmount += ADDITIONAL_DISCOUNT;
             }
         }
