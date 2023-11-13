@@ -1,5 +1,6 @@
 package service;
 
+import domain.Menu;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class Event {
     private static final int SPECIAL_DISCOUNT = 1_000;
     private static final int NO_DISCOUNT = 0;
     private static final int CHRISTMAS_DAY = 25;
+    private static final int NO_ORDER = 0;
 
     public int calculateChristmasDiscountAmount(int reservation) {
         int discountAmount = MIN_DISCOUNT;
@@ -27,7 +29,7 @@ public class Event {
         return discountAmount;
     }
 
-    public int calculateWeekDiscountAmount(int day, Map<String, Integer> order) {
+    public int calculateWeekDiscountAmount(int day, Map<Menu, Integer> order) {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
@@ -36,14 +38,14 @@ public class Event {
         return countMain(order) * WEEK_DISCOUNT;
     }
 
-    public int countDessert(Map<String, Integer> order) {
+    public int countDessert(Map<Menu, Integer> order) {
         int dessertCount = COUNT_ZERO;
         dessertCount += order.getOrDefault("초코케이크", COUNT_ZERO);
         dessertCount += order.getOrDefault("아이스크림", COUNT_ZERO);
         return dessertCount;
     }
 
-    public int countMain(Map<String, Integer> order) {
+    public int countMain(Map<Menu, Integer> order) {
         int dessertCount = COUNT_ZERO;
         dessertCount += order.getOrDefault("티본스테이크", COUNT_ZERO);
         dessertCount += order.getOrDefault("바비큐립", COUNT_ZERO);
@@ -59,6 +61,14 @@ public class Event {
             return SPECIAL_DISCOUNT;
         }
         return NO_DISCOUNT;
+    }
+
+    public int calculateTotalPriceBeforeDiscount(Map<Menu, Integer> order) {
+        int totalPrice = NO_ORDER;
+        for (Menu menu : order.keySet()) {
+            totalPrice += menu.getPrice() * order.get(menu);
+        }
+        return totalPrice;
     }
 
 }
