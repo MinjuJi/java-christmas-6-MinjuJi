@@ -84,4 +84,28 @@ public class EventTest {
         assertThat(result3).isEqualTo(NO_DISCOUNT);
     }
 
+    @DisplayName("할인 전 총주문 금액이 12만 원 이상일 때, true를 반환한다.")
+    @Test
+    void 샴페인_증정_기능_테스트() {
+        // given
+        final boolean NO_GIFT = false;
+        final boolean GIFT = true;
+        final int ORDER_QUANTITY_TWO = 2;
+        final int ORDER_QUANTITY_ONE = 1;
+        final Map<Menu, Integer> case1 = new HashMap<>();
+        case1.put(Menu.valueOf("양송이수프"), ORDER_QUANTITY_TWO);
+        case1.put(Menu.valueOf("티본스테이크"), ORDER_QUANTITY_ONE);
+        final Map<Menu, Integer> case2 = new HashMap<>();
+        case2.put(Menu.valueOf("티본스테이크"), ORDER_QUANTITY_TWO);
+        case2.put(Menu.valueOf("아이스크림"), ORDER_QUANTITY_TWO);
+
+        // when
+        boolean result1 = event.offerGiftByTotalPrice(case1);
+        boolean result2 = event.offerGiftByTotalPrice(case2);
+
+        // then
+        assertThat(result1).isEqualTo(NO_GIFT);
+        assertThat(result2).isEqualTo(GIFT);
+    }
+
 }
