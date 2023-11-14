@@ -13,8 +13,8 @@ public class OutputView {
     private static final int WEEKDAY_INDEX = 0;
     private static final int WEEKEND_INDEX = 1;
 
-    public void printPreviewBenefit(Reservation reservation) {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", reservation.getDay());
+    public void printPreviewMessage(Reservation reservation) {
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", reservation.getDay());
     }
 
     public void printReservationMenu(Reservation reservation) {
