@@ -108,4 +108,20 @@ public class EventTest {
         assertThat(result2).isEqualTo(GIFT);
     }
 
+    @DisplayName("할인 전 총주문 금액에서 할인 금액을 뺀다.")
+    @Test
+    void 예상_결제_금액_계산_기능_테스트() {
+        // given
+        final int TOTAL_DISCOUNT = 6_246;
+        final int EXPECTED_PAYMENT_AMOUNT = 111_754;
+        final Map<Menu, Integer> order = new HashMap<>();
+        order.put(Menu.valueOf("바비큐립"), 2);
+        order.put(Menu.valueOf("아이스크림"), 2);
+
+        // when
+        int result1 = event.calculateExpectedPaymentAmount(order, TOTAL_DISCOUNT);
+
+        // then
+        assertThat(result1).isEqualTo(EXPECTED_PAYMENT_AMOUNT);
+    }
 }
