@@ -1,7 +1,7 @@
 package domain;
 
 public class Badge {
-    String badge = "없음";
+    private final String badge;
 
     public Badge(String badge) {
         this.badge = badge;
