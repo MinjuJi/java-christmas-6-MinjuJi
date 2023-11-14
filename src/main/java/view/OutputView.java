@@ -41,6 +41,7 @@ public class OutputView {
         System.out.println("\n<증정 메뉴>");
         if (benefit.isChampagne()) {
             System.out.println("샴페인 1개");
+            return;
         }
         System.out.println("없음");
     }
