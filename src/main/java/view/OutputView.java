@@ -46,17 +46,14 @@ public class OutputView {
 
     public void printBenefitDetails(Benefit benefit) {
         System.out.println("\n<혜택 내역>");
-        printNoBenefit(benefit);
+        if (benefit.calculateTotalDiscount() == 0 && !benefit.isChampagne()) {
+            System.out.println("없음");
+            return;
+        }
         printChristmasDiscount(benefit);
         printWeekDiscount(benefit);
         printSpecialDiscount(benefit);
         printGift(benefit);
-    }
-
-    public void printNoBenefit(Benefit benefit) {
-        if (benefit.calculateTotalDiscount() == 0 && !benefit.isChampagne()) {
-            System.out.println("없음");
-        }
     }
 
     public void printChristmasDiscount(Benefit benefit) {
