@@ -2,6 +2,7 @@ package christmas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import domain.Badge;
 import domain.Menu;
 import java.util.HashMap;
 import java.util.Map;
@@ -106,5 +107,36 @@ public class EventTest {
         // then
         assertThat(result1).isEqualTo(NO_GIFT);
         assertThat(result2).isEqualTo(GIFT);
+    }
+
+    @DisplayName("총혜택 금액 구간 별 이벤트 배지를 부여한다.")
+    @Test
+    void 이벤트_배지_부여_테스트() {
+        // given
+        final int LESS_STAR = 3_000;
+        final int MORE_STAR = 5_000;
+        final int MORE_TREE = 10_000;
+        final int MORE_SANTA = 20_000;
+        final boolean HAS_NOT_CHAMPAGNE = false;
+        final String NOTHING = "없음";
+        final String STAR = "별";
+        final String TREE = "트리";
+        final String SANTA = "산타";
+        final int case1 = LESS_STAR;
+        final int case2 = MORE_STAR;
+        final int case3 = MORE_TREE;
+        final int case4 = MORE_SANTA;
+
+        // when
+        Badge result1 = event.offerBadgeByTotalBenefit(case1, HAS_NOT_CHAMPAGNE);
+        Badge result2 = event.offerBadgeByTotalBenefit(case2, HAS_NOT_CHAMPAGNE);
+        Badge result3 = event.offerBadgeByTotalBenefit(case3, HAS_NOT_CHAMPAGNE);
+        Badge result4 = event.offerBadgeByTotalBenefit(case4, HAS_NOT_CHAMPAGNE);
+
+        // then
+        assertThat(result1.getBadge()).isEqualTo(NOTHING);
+        assertThat(result2.getBadge()).isEqualTo(STAR);
+        assertThat(result3.getBadge()).isEqualTo(TREE);
+        assertThat(result4.getBadge()).isEqualTo(SANTA);
     }
 }
