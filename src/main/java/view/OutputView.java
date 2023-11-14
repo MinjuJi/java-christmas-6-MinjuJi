@@ -60,23 +60,23 @@ public class OutputView {
 
     public void printChristmasDiscount(Benefit benefit) {
         if (benefit.getChristmasDiscount() > 0) {
-            System.out.printf("크리스마스 디데이 할인: -%d원\n", benefit.getSpecialDiscount());
+            System.out.printf("크리스마스 디데이 할인: -%,d원\n", benefit.getChristmasDiscount());
         }
     }
 
     public void printWeekDiscount(Benefit benefit) {
         List<Integer> weekDiscount = benefit.getWeekDiscount();
         if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKDAY_INDEX) {
-            System.out.printf("평일 할인: -%d원\n", weekDiscount.get(1));
+            System.out.printf("평일 할인: -%,d원\n", weekDiscount.get(1));
         }
         if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKEND_INDEX) {
-            System.out.printf("주말 할인: -%d원\n", weekDiscount.get(1));
+            System.out.printf("주말 할인: -%,d원\n", weekDiscount.get(1));
         }
     }
 
     public void printSpecialDiscount(Benefit benefit) {
         if (benefit.getSpecialDiscount() > 0) {
-            System.out.printf("특별 할인: -%d원\n", benefit.getSpecialDiscount());
+            System.out.printf("특별 할인: -%,d원\n", benefit.getSpecialDiscount());
         }
     }
 
