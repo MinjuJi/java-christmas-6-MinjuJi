@@ -10,10 +10,10 @@ public class InputView {
     private static final int MENU_INDEX = 0;
     private static final int COUNT_INDEX = 1;
 
-    public int readDate() {
+    public int readDay() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        String date = Console.readLine();
-        return Integer.parseInt(date);
+        String day = Console.readLine();
+        return Integer.parseInt(day);
     }
 
     public Map<Menu, Integer> readMenu(String firstDelimiter, String secondDelimiter) {

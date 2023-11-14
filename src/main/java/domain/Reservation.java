@@ -3,16 +3,16 @@ package domain;
 import java.util.Map;
 
 public class Reservation {
-    private int date;
+    private int day;
     private Map<Menu, Integer> order;
 
-    public Reservation(int date, Map<Menu, Integer> order) {
-        this.date = date;
+    public Reservation(int day, Map<Menu, Integer> order) {
+        this.day = day;
         this.order = order;
     }
 
-    public int getDate() {
-        return date;
+    public int getDay() {
+        return day;
     }
 
     public Map<Menu, Integer> getOrder() {
