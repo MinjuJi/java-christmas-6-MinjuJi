@@ -21,7 +21,24 @@ public class Benefit {
         return christmasDiscount + weekdayDiscount + weekendDiscount + specialDiscount;
     }
 
+    public int getChristmasDiscount() {
+        return christmasDiscount;
+    }
+
+    public int getWeekdayDiscount() {
+        return weekdayDiscount;
+    }
+
+    public int getWeekendDiscount() {
+        return weekendDiscount;
+    }
+
+    public int getSpecialDiscount() {
+        return specialDiscount;
+    }
+
     public boolean isChampagne() {
         return champagne;
     }
+
 }

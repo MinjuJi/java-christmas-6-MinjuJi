@@ -26,7 +26,7 @@ public class OutputView {
         System.out.printf("%,d원\n", totalPrice);
     }
 
-    public void print(Benefit benefit) {
+    public void printGift(Benefit benefit) {
         System.out.println("<증정 메뉴>");
         if (benefit.isChampagne()) {
             System.out.println("샴페인 1개");
@@ -34,4 +34,26 @@ public class OutputView {
         System.out.println("없음");
     }
 
+    public void printBenefitDetails(Benefit benefit) {
+        System.out.println("<혜택 내역>");
+        if (benefit.calculateTotalDiscount() == 0 && !benefit.isChampagne()) {
+            System.out.println("없음");
+        }
+        if (benefit.getChristmasDiscount() > 0) {
+            System.out.printf("크리스마스 디데이 할인: -&d원\n", benefit.getSpecialDiscount());
+        }
+        if (benefit.getWeekdayDiscount() > 0) {
+            System.out.printf("평일 할인: -&d원\n", benefit.getWeekdayDiscount());
+        }
+        if (benefit.getWeekendDiscount() > 0) {
+            System.out.printf("주말 할인: -&d원\n", benefit.getWeekendDiscount());
+        }
+        if (benefit.getSpecialDiscount() > 0) {
+            System.out.printf("특별 할인: -&d원\n", benefit.getSpecialDiscount());
+        }
+        if (benefit.isChampagne()) {
+            System.out.println("증정 이벤트: -25,000원");
+        }
+    }
+    
 }
