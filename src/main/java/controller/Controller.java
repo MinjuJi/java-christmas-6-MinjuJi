@@ -32,7 +32,7 @@ public class Controller {
 
     private void applyEvent() {
         benefit = event.initializeBenefit(reservation);
-        badge = event.offerBadgeByTotalBenefit(benefit.calculateTotalDiscount(), benefit.isChampagne());
+        badge = event.offerBadgeByTotalBenefit(benefit.calculateTotalDiscount(), benefit.hasChampagne());
     }
 
     private void showReservationAndBenefits() {

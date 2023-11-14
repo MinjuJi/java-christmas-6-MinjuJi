@@ -28,6 +28,8 @@ public class Event {
     private static final int MIN_TOTAL_BENEFIT_FOR_STAR_BADGE = 5_000;
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
+    private static final int WEEKDAY = 0;
+    private static final int WEEKEND = 1;
 
     public Benefit initializeBenefit(Reservation reservation) {
         int christmasDiscount = calculateChristmasDiscount(reservation.getDay());
@@ -50,9 +52,9 @@ public class Event {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
-            return 0;           /* 0 = 평일 할인 */
+            return WEEKDAY;
         }
-        return 1;               /* 1 = 주말 할인 */
+        return WEEKEND;
     }
 
     public int calculateWeekDiscount(int day, Map<Menu, Integer> order) {
@@ -90,16 +92,16 @@ public class Event {
     }
 
     public boolean offerGiftByTotalPrice(Map<Menu, Integer> order) {
-        int totalPrice = calculateTotalPriceBeforeDiscount(order);
-        return totalPrice >= MIN_TOTAL_PRICE_FOR_GIFT;
+        int totalPriceBeforeDiscount = calculateTotalPriceBeforeDiscount(order);
+        return totalPriceBeforeDiscount >= MIN_TOTAL_PRICE_FOR_GIFT;
     }
 
     public int calculateTotalPriceBeforeDiscount(Map<Menu, Integer> order) {
-        int totalPrice = NO_ORDER;
+        int totalPriceBeforeDiscount = NO_ORDER;
         for (Menu menu : order.keySet()) {
-            totalPrice += menu.getPrice() * order.get(menu);
+            totalPriceBeforeDiscount += menu.getPrice() * order.get(menu);
         }
-        return totalPrice;
+        return totalPriceBeforeDiscount;
     }
 
     public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne) {
@@ -116,12 +118,12 @@ public class Event {
         return new Badge("없음");
     }
 
-    public int calculateTotalBenefit(int totalDiscount, boolean isChampagne) {
+    public int calculateTotalBenefit(int totalDiscount, boolean champagne) {
         int totalBenefit = NO_BENEFIT;
-        if (isChampagne == true) {
+        if (champagne == true) {
             totalBenefit += totalDiscount + CHAMPAGNE_PRICE;
         }
-        if (isChampagne == false) {
+        if (champagne == false) {
             totalBenefit += totalDiscount;
         }
         return totalBenefit;

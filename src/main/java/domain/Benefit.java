@@ -32,7 +32,7 @@ public class Benefit {
         return specialDiscount;
     }
 
-    public boolean isChampagne() {
+    public boolean hasChampagne() {
         return champagne;
     }
 

@@ -42,7 +42,7 @@ public class OutputView {
 
     public void printHasGift(Benefit benefit) {
         System.out.println("\n<증정 메뉴>");
-        if (benefit.isChampagne()) {
+        if (benefit.hasChampagne()) {
             System.out.println("샴페인 1개");
             return;
         }
@@ -51,7 +51,7 @@ public class OutputView {
 
     public void printBenefitDetails(Benefit benefit) {
         System.out.println("\n<혜택 내역>");
-        if (benefit.calculateTotalDiscount() == NO_DISCOUNT && !benefit.isChampagne()) {
+        if (benefit.calculateTotalDiscount() == NO_DISCOUNT && !benefit.hasChampagne()) {
             System.out.println("없음");
             return;
         }
@@ -89,7 +89,7 @@ public class OutputView {
     }
 
     public void printGift(Benefit benefit) {
-        if (benefit.isChampagne()) {
+        if (benefit.hasChampagne()) {
             System.out.println("증정 이벤트: -25,000원");
         }
     }
@@ -97,7 +97,7 @@ public class OutputView {
     public void printTotalBenefit(Benefit benefit, Event event) {
         System.out.println("\n<총혜택 금액>");
         int totalDiscount = benefit.calculateTotalDiscount();
-        boolean isChampagne = benefit.isChampagne();
+        boolean isChampagne = benefit.hasChampagne();
         int totalBenefit = event.calculateTotalBenefit(totalDiscount, isChampagne);
         if (totalBenefit == NO_BENEFIT) {
             System.out.println("없음");
