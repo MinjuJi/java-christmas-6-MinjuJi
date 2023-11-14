@@ -9,9 +9,11 @@ import java.util.Map;
 import service.Event;
 
 public class OutputView {
-    private static final int WEEKDAY_OR_WEEKEND_INDEX = 0;
-    private static final int WEEKDAY_INDEX = 0;
-    private static final int WEEKEND_INDEX = 1;
+    private static final int TYPE_INDEX = 0;
+    private static final int DISCOUNT_INDEX = 1;
+    private static final int WEEKDAY = 0;
+    private static final int WEEKEND = 1;
+    private static final int NO_DISCOUNT = 0;
     private static final int NO_BENEFIT = 0;
 
     public void printWelcomeMessage() {
@@ -48,7 +50,7 @@ public class OutputView {
 
     public void printBenefitDetails(Benefit benefit) {
         System.out.println("\n<혜택 내역>");
-        if (benefit.calculateTotalDiscount() == 0 && !benefit.isChampagne()) {
+        if (benefit.calculateTotalDiscount() == NO_DISCOUNT && !benefit.isChampagne()) {
             System.out.println("없음");
             return;
         }
@@ -59,23 +61,28 @@ public class OutputView {
     }
 
     public void printChristmasDiscount(Benefit benefit) {
-        if (benefit.getChristmasDiscount() > 0) {
+        if (benefit.getChristmasDiscount() > NO_DISCOUNT) {
             System.out.printf("크리스마스 디데이 할인: -%,d원\n", benefit.getChristmasDiscount());
         }
     }
 
     public void printWeekDiscount(Benefit benefit) {
         List<Integer> weekDiscount = benefit.getWeekDiscount();
-        if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKDAY_INDEX) {
-            System.out.printf("평일 할인: -%,d원\n", weekDiscount.get(1));
-        }
-        if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKEND_INDEX) {
-            System.out.printf("주말 할인: -%,d원\n", weekDiscount.get(1));
+        int discount = weekDiscount.get(DISCOUNT_INDEX);
+        int weekdayOrWeekend = weekDiscount.get(TYPE_INDEX);
+
+        if (discount > NO_DISCOUNT) {
+            if (weekdayOrWeekend == WEEKDAY) {
+                System.out.printf("평일 할인: -%,d원\n", discount);
+            }
+            if (weekdayOrWeekend == WEEKEND) {
+                System.out.printf("주말 할인: -%,d원\n", discount);
+            }
         }
     }
 
     public void printSpecialDiscount(Benefit benefit) {
-        if (benefit.getSpecialDiscount() > 0) {
+        if (benefit.getSpecialDiscount() > NO_DISCOUNT) {
             System.out.printf("특별 할인: -%,d원\n", benefit.getSpecialDiscount());
         }
     }
