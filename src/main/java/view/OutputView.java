@@ -12,6 +12,7 @@ public class OutputView {
     private static final int WEEKDAY_OR_WEEKEND_INDEX = 0;
     private static final int WEEKDAY_INDEX = 0;
     private static final int WEEKEND_INDEX = 1;
+    private static final int NO_BENEFIT = 0;
 
     public void printWelcomeMessage() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -88,7 +89,12 @@ public class OutputView {
         System.out.println("\n<총혜택 금액>");
         int totalDiscount = benefit.calculateTotalDiscount();
         boolean isChampagne = benefit.isChampagne();
-        System.out.printf("-%,d원\n", event.calculateTotalBenefit(totalDiscount, isChampagne));
+        int totalBenefit = event.calculateTotalBenefit(totalDiscount, isChampagne);
+        if (totalBenefit == NO_BENEFIT) {
+            System.out.println("없음");
+            return;
+        }
+        System.out.printf("-%,d원\n", totalBenefit);
     }
 
     public void printExpectedPaymentAmount(Reservation reservation, Benefit benefit, Event event) {
