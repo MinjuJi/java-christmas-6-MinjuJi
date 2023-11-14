@@ -7,6 +7,7 @@ import domain.Reservation;
 import java.util.List;
 import java.util.Map;
 import service.Event;
+import utils.Utils;
 
 public class OutputView {
     private static final int TYPE_INDEX = 0;
@@ -110,7 +111,7 @@ public class OutputView {
         Map<Menu, Integer> order = reservation.getOrder();
         int totalPriceBeforeDiscount = event.calculateTotalPriceBeforeDiscount(order);
         int totalDiscount = benefit.calculateTotalDiscount();
-        int expectedPaymentAmount = event.calculateExpectedPaymentAmount(totalPriceBeforeDiscount, totalDiscount);
+        int expectedPaymentAmount = Utils.subtract(totalPriceBeforeDiscount, totalDiscount);
         System.out.printf("%,d원\n", expectedPaymentAmount);
     }
 

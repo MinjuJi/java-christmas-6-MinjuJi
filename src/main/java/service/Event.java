@@ -29,13 +29,6 @@ public class Event {
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
 
-    public int calculateChristmasDiscount(int day) {
-        if (day <= END_DAY) {
-            return MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT;
-        }
-        return NO_DISCOUNT;
-    }
-
     public Benefit initializeBenefit(Reservation reservation) {
         int christmasDiscount = calculateChristmasDiscount(reservation.getDay());
         int weekdayOrWeekend = checkWeekdayOrWeekend(reservation.getDay());
@@ -44,6 +37,13 @@ public class Event {
         int specialDiscount = calculateSpecialDiscount(reservation.getDay());
         boolean champagne = offerGiftByTotalPrice(reservation.getOrder());
         return new Benefit(christmasDiscount, weekDiscount, specialDiscount, champagne);
+    }
+
+    public int calculateChristmasDiscount(int day) {
+        if (day <= END_DAY) {
+            return (MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT);
+        }
+        return NO_DISCOUNT;
     }
 
     public int checkWeekdayOrWeekend(int day) {
@@ -56,8 +56,8 @@ public class Event {
     }
 
     public int calculateWeekDiscount(int day, Map<Menu, Integer> order) {
-        LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
-        DayOfWeek dayOfWeek = reservation.getDayOfWeek();
+        LocalDate date = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             return countDessert(order) * WEEK_DISCOUNT;
         }
@@ -125,9 +125,5 @@ public class Event {
             totalBenefit += totalDiscount;
         }
         return totalBenefit;
-    }
-
-    public int calculateExpectedPaymentAmount(int totalPriceBeforeDiscount, int totalDiscount) {
-        return totalPriceBeforeDiscount - totalDiscount;
     }
 }
