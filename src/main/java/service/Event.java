@@ -99,10 +99,10 @@ public class Event {
     public int calculateTotalBenefit(int totalDiscount, boolean isChampagne) {
         int totalBenefit = NO_BENEFIT;
         if (isChampagne == true) {
-            totalBenefit = totalDiscount + CHAMPAGNE_PRICE;
+            totalBenefit += totalDiscount + CHAMPAGNE_PRICE;
         }
         if (isChampagne == false) {
-            totalBenefit = totalDiscount;
+            totalBenefit += totalDiscount;
         }
         return totalBenefit;
     }

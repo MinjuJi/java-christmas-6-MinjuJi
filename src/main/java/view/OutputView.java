@@ -55,5 +55,12 @@ public class OutputView {
             System.out.println("증정 이벤트: -25,000원");
         }
     }
-    
+
+    public void printTotalBenefit(Benefit benefit, Event event) {
+        System.out.println("<총혜택 금액>");
+        int totalDiscount = benefit.calculateTotalDiscount();
+        boolean isChampagne = benefit.isChampagne();
+        System.out.printf("-%,d원\n", event.calculateTotalBenefit(totalDiscount, isChampagne));
+    }
+
 }
