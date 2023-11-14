@@ -24,6 +24,7 @@ public class Controller {
     }
 
     private void reserve() {
+        outputView.printWelcomeMessage();
         int day = inputView.readDay();
         Map<Menu, Integer> order = inputView.readMenu();
         reservation = new Reservation(day, order);
