@@ -63,4 +63,13 @@ public class OutputView {
         System.out.printf("-%,d원\n", event.calculateTotalBenefit(totalDiscount, isChampagne));
     }
 
+    public void printExpectedPaymentAmount(Reservation reservation, Benefit benefit, Event event) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        Map<Menu, Integer> order = reservation.getOrder();
+        int totalPriceBeforeDiscount = event.calculateTotalPriceBeforeDiscount(order);
+        int totalDiscount = benefit.calculateTotalDiscount();
+        int expectedPaymentAmount = event.calculateExpectedPaymentAmount(totalPriceBeforeDiscount, totalDiscount);
+        System.out.printf("%,d원\n", expectedPaymentAmount);
+    }
+    
 }
