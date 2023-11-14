@@ -1,9 +1,12 @@
 package service;
 
 import domain.Badge;
+import domain.Benefit;
 import domain.Menu;
+import domain.Reservation;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public class Event {
@@ -31,6 +34,16 @@ public class Event {
             return MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT;
         }
         return NO_DISCOUNT;
+    }
+
+    public Benefit initializeBenefit(Reservation reservation) {
+        int christmasDiscount = calculateChristmasDiscount(reservation.getDay());
+        int weekdayOrWeekend = checkWeekdayOrWeekend(reservation.getDay());
+        int weekdayDiscountOrWeekendDiscount = calculateWeekDiscount(reservation.getDay(), reservation.getOrder());
+        List<Integer> weekDiscount = List.of(weekdayOrWeekend, weekdayDiscountOrWeekendDiscount);
+        int specialDiscount = calculateSpecialDiscount(reservation.getDay());
+        boolean champagne = offerGiftByTotalPrice(reservation.getOrder());
+        return new Benefit(christmasDiscount, weekDiscount, specialDiscount, champagne);
     }
 
     public int checkWeekdayOrWeekend(int day) {
@@ -89,7 +102,7 @@ public class Event {
         return totalPrice;
     }
 
-    public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne, Badge badge) {
+    public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne) {
         int totalBenefit = calculateTotalBenefit(totalDiscount, isChampagne);
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE) {
             return new Badge("산타");

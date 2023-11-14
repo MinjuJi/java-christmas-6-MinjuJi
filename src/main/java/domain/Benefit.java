@@ -3,7 +3,7 @@ package domain;
 import java.util.List;
 
 public class Benefit {
-
+    private static final int DISCOUNT_INDEX = 1;
     private final int christmasDiscount;
     private final List<Integer> weekDiscount;
     private final int specialDiscount;
@@ -17,7 +17,7 @@ public class Benefit {
     }
 
     public int calculateTotalDiscount() {
-        return christmasDiscount + weekDiscount.get(1) + specialDiscount;
+        return christmasDiscount + weekDiscount.get(DISCOUNT_INDEX) + specialDiscount;
     }
 
     public int getChristmasDiscount() {
