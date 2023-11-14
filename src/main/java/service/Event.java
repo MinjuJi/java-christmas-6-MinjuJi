@@ -26,9 +26,18 @@ public class Event {
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
 
-    public int calculateChristmasDiscount(int reservationDay) {
-        if (reservationDay <= END_DAY) {
-            return MIN_DISCOUNT + (reservationDay - START_DAY) * ADDITIONAL_DISCOUNT;
+    public int checkWeekdayOrWeekend(int day) {
+        LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
+        DayOfWeek dayOfWeek = reservation.getDayOfWeek();
+        if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
+            return 0;           /* 0 = 평일 할인 */
+        }
+        return 1;               /* 1 = 주말 할인 */
+    }
+
+    public int calculateChristmasDiscount(int day) {
+        if (day <= END_DAY) {
+            return MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT;
         }
         return NO_DISCOUNT;
     }
