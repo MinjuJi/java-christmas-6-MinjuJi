@@ -101,9 +101,6 @@ public class OutputView {
 
     public void printBadge(Badge badge) {
         System.out.println("\n<12월 이벤트 배지>");
-        if (badge.getBadge() == null) {
-            System.out.println("없음");
-        }
         System.out.println(badge.getBadge());
     }
 }

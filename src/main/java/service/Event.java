@@ -26,6 +26,13 @@ public class Event {
     private static final int NO_BENEFIT = 0;
     private static final int CHAMPAGNE_PRICE = 25_000;
 
+    public int calculateChristmasDiscount(int day) {
+        if (day <= END_DAY) {
+            return MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT;
+        }
+        return NO_DISCOUNT;
+    }
+
     public int checkWeekdayOrWeekend(int day) {
         LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
         DayOfWeek dayOfWeek = reservation.getDayOfWeek();
@@ -33,13 +40,6 @@ public class Event {
             return 0;           /* 0 = 평일 할인 */
         }
         return 1;               /* 1 = 주말 할인 */
-    }
-
-    public int calculateChristmasDiscount(int day) {
-        if (day <= END_DAY) {
-            return MIN_DISCOUNT + (day - START_DAY) * ADDITIONAL_DISCOUNT;
-        }
-        return NO_DISCOUNT;
     }
 
     public int calculateWeekDiscount(int day, Map<Menu, Integer> order) {
@@ -89,20 +89,18 @@ public class Event {
         return totalPrice;
     }
 
-    public void offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne, Badge badge) {
+    public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne, Badge badge) {
         int totalBenefit = calculateTotalBenefit(totalDiscount, isChampagne);
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE) {
-            badge = new Badge("산타");
-            return;
+            return new Badge("산타");
         }
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_TREE_BADGE) {
-            badge = new Badge("트리");
-            return;
+            return new Badge("트리");
         }
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_STAR_BADGE) {
-            badge = new Badge("별");
-            return;
+            return new Badge("별");
         }
+        return new Badge("없음");
     }
 
     public int calculateTotalBenefit(int totalDiscount, boolean isChampagne) {
