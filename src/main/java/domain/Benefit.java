@@ -1,36 +1,31 @@
 package domain;
 
+import java.util.List;
+
 public class Benefit {
 
     private final int christmasDiscount;
-    private final int weekdayDiscount;
-    private final int weekendDiscount;
+    private final List<Integer> weekDiscount;
     private final int specialDiscount;
     private final boolean champagne;
 
-    public Benefit(int christmasDiscount, int weekdayDiscount, int weekendDiscount, int specialDiscount,
-                   boolean champagne) {
+    public Benefit(int christmasDiscount, List<Integer> weekDiscount, int specialDiscount, boolean champagne) {
         this.christmasDiscount = christmasDiscount;
-        this.weekdayDiscount = weekdayDiscount;
-        this.weekendDiscount = weekendDiscount;
+        this.weekDiscount = weekDiscount;
         this.specialDiscount = specialDiscount;
         this.champagne = champagne;
     }
 
     public int calculateTotalDiscount() {
-        return christmasDiscount + weekdayDiscount + weekendDiscount + specialDiscount;
+        return christmasDiscount + weekDiscount.get(1) + specialDiscount;
     }
 
     public int getChristmasDiscount() {
         return christmasDiscount;
     }
 
-    public int getWeekdayDiscount() {
-        return weekdayDiscount;
-    }
-
-    public int getWeekendDiscount() {
-        return weekendDiscount;
+    public List<Integer> getWeekDiscount() {
+        return weekDiscount;
     }
 
     public int getSpecialDiscount() {

@@ -4,10 +4,15 @@ import domain.Badge;
 import domain.Benefit;
 import domain.Menu;
 import domain.Reservation;
+import java.util.List;
 import java.util.Map;
 import service.Event;
 
 public class OutputView {
+    private static final int WEEKDAY_OR_WEEKEND_INDEX = 0;
+    private static final int WEEKDAY_INDEX = 0;
+    private static final int WEEKEND_INDEX = 1;
+
     public void printPreviewBenefit(Reservation reservation) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", reservation.getDay());
     }
@@ -27,7 +32,7 @@ public class OutputView {
         System.out.printf("%,d원\n", totalPrice);
     }
 
-    public void printGift(Benefit benefit) {
+    public void printHasGift(Benefit benefit) {
         System.out.println("\n<증정 메뉴>");
         if (benefit.isChampagne()) {
             System.out.println("샴페인 1개");
@@ -37,21 +42,42 @@ public class OutputView {
 
     public void printBenefitDetails(Benefit benefit) {
         System.out.println("\n<혜택 내역>");
+        printNoBenefit(benefit);
+        printChristmasDiscount(benefit);
+        printWeekDiscount(benefit);
+        printSpecialDiscount(benefit);
+        printGift(benefit);
+    }
+
+    public void printNoBenefit(Benefit benefit) {
         if (benefit.calculateTotalDiscount() == 0 && !benefit.isChampagne()) {
             System.out.println("없음");
         }
+    }
+
+    public void printChristmasDiscount(Benefit benefit) {
         if (benefit.getChristmasDiscount() > 0) {
             System.out.printf("크리스마스 디데이 할인: -&d원\n", benefit.getSpecialDiscount());
         }
-        if (benefit.getWeekdayDiscount() > 0) {
-            System.out.printf("평일 할인: -&d원\n", benefit.getWeekdayDiscount());
+    }
+
+    public void printWeekDiscount(Benefit benefit) {
+        List<Integer> weekDiscount = benefit.getWeekDiscount();
+        if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKDAY_INDEX) {
+            System.out.printf("평일 할인: -&d원\n", weekDiscount.get(1));
         }
-        if (benefit.getWeekendDiscount() > 0) {
-            System.out.printf("주말 할인: -&d원\n", benefit.getWeekendDiscount());
+        if (weekDiscount.get(WEEKDAY_OR_WEEKEND_INDEX) == WEEKEND_INDEX) {
+            System.out.printf("주말 할인: -&d원\n", weekDiscount.get(1));
         }
+    }
+
+    public void printSpecialDiscount(Benefit benefit) {
         if (benefit.getSpecialDiscount() > 0) {
             System.out.printf("특별 할인: -&d원\n", benefit.getSpecialDiscount());
         }
+    }
+
+    public void printGift(Benefit benefit) {
         if (benefit.isChampagne()) {
             System.out.println("증정 이벤트: -25,000원");
         }
