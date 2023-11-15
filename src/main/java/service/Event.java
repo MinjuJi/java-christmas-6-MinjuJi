@@ -31,8 +31,12 @@ public class Event {
     private static final int CHAMPAGNE_PRICE = 25_000;
     private static final int WEEKDAY = 0;
     private static final int WEEKEND = 1;
+    private static final int MIN_TOTAL_PRICE_BEFORE_DISCOUNT = 10_000;
 
     public Benefit initializeBenefit(Reservation reservation) {
+        if (calculateTotalPriceBeforeDiscount(reservation.getOrder()) < MIN_TOTAL_PRICE_BEFORE_DISCOUNT) {
+            return new Benefit(NO_DISCOUNT, List.of(NO_DISCOUNT, NO_DISCOUNT), NO_DISCOUNT, false);
+        }
         int christmasDiscount = calculateChristmasDiscount(reservation.getDay());
         int weekdayOrWeekend = checkWeekdayOrWeekend(reservation.getDay());
         int weekdayDiscountOrWeekendDiscount = calculateWeekDiscount(reservation.getDay(), reservation.getOrder());
