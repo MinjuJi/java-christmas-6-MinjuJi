@@ -26,13 +26,15 @@ public class Controller {
     private void reserve() {
         outputView.printWelcomeMessage();
         int day = inputDay();
-        try {
-            Map<Menu, Integer> order = inputOrder();
-            reservation = new Reservation(day, order);
-        } catch (IllegalArgumentException error) {
-            System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            Map<Menu, Integer> order = inputOrder();
-            reservation = new Reservation(day, order);
+        boolean validOrder = false;
+        while (!validOrder) {
+            try {
+                Map<Menu, Integer> order = inputOrder();
+                reservation = new Reservation(day, order);
+                validOrder = true;
+            } catch (IllegalArgumentException error) {
+                System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
         }
     }
 
