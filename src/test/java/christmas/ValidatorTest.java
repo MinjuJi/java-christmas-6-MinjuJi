@@ -154,4 +154,28 @@ public class ValidatorTest {
         assertThat(result1).doesNotThrowAnyException();
         assertThat(result2).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("음료만 주문하면 예외를 발생시킨다.")
+    @Test
+    void 음료만_주문_예외_테스트() {
+        // given
+        Map<Menu, Integer> case1 = new HashMap<>();
+        case1.put(Menu.크리스마스파스타, 5);
+        case1.put(Menu.샴페인, 1);
+        Map<Menu, Integer> case2 = new HashMap<>();
+        case2.put(Menu.제로콜라, 4);
+        case2.put(Menu.레드와인, 1);
+
+        // when
+        Throwable result1 = catchThrowable(() -> {
+            Validator.validateOnlyBeverages(case1);
+        });
+        Throwable result2 = catchThrowable(() -> {
+            Validator.validateOnlyBeverages(case2);
+        });
+
+        // then
+        assertThat(result1).doesNotThrowAnyException();
+        assertThat(result2).isInstanceOf(IllegalArgumentException.class);
+    }
 }
