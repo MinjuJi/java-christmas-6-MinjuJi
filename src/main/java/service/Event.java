@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import utils.Utils;
 
 public class Event {
     private static final int MIN_DISCOUNT = 1_000;
@@ -49,8 +50,7 @@ public class Event {
     }
 
     public int checkWeekdayOrWeekend(int day) {
-        LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
-        DayOfWeek dayOfWeek = reservation.getDayOfWeek();
+        DayOfWeek dayOfWeek = Utils.findDayOfWeek(EVENT_YEAR, EVENT_MONTH, day);
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             return WEEKDAY;
         }
@@ -58,8 +58,7 @@ public class Event {
     }
 
     public int calculateWeekDiscount(int day, Map<Menu, Integer> order) {
-        LocalDate date = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        DayOfWeek dayOfWeek = Utils.findDayOfWeek(EVENT_YEAR, EVENT_MONTH, day);
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             return countDessert(order) * WEEK_DISCOUNT;
         }
@@ -83,9 +82,8 @@ public class Event {
     }
 
     public int calculateSpecialDiscount(int day) {
-        LocalDate reservation = LocalDate.of(EVENT_YEAR, EVENT_MONTH, day);
-        DayOfWeek dayOfWeek = reservation.getDayOfWeek();
-        if (dayOfWeek == DayOfWeek.SUNDAY || reservation.getDayOfMonth() == CHRISTMAS_DAY) {
+        LocalDate reservation = Utils.createLocalDate(EVENT_YEAR, EVENT_MONTH, day);
+        if (reservation.getDayOfWeek() == DayOfWeek.SUNDAY || reservation.getDayOfMonth() == CHRISTMAS_DAY) {
             return SPECIAL_DISCOUNT;
         }
         return NO_DISCOUNT;
@@ -104,8 +102,8 @@ public class Event {
         return totalPriceBeforeDiscount;
     }
 
-    public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean isChampagne) {
-        int totalBenefit = calculateTotalBenefit(totalDiscount, isChampagne);
+    public Badge offerBadgeByTotalBenefit(int totalDiscount, boolean champagne) {
+        int totalBenefit = calculateTotalBenefit(totalDiscount, champagne);
         if (totalBenefit >= MIN_TOTAL_BENEFIT_FOR_SANTA_BADGE) {
             return new Badge("산타");
         }
