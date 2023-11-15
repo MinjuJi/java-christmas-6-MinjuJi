@@ -57,4 +57,24 @@ public class ValidatorTest {
         assertThat(result3).isInstanceOf(IllegalArgumentException.class);
         assertThat(result4).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("예약한 주문이 메뉴판에 없는 메뉴라면 예외를 발생시킨다.")
+    @Test
+    void 주문_메뉴_존재_테스트() {
+        // given
+        String[] case1 = new String[]{"초코케이크"};
+        String[] case2 = new String[]{"딸기케이크"};
+
+        // when
+        Throwable result1 = catchThrowable(() -> {
+            Validator.validateExistingMenu(case1);
+        });
+        Throwable result2 = catchThrowable(() -> {
+            Validator.validateExistingMenu(case2);
+        });
+
+        // then
+        assertThat(result1).doesNotThrowAnyException();
+        assertThat(result2).isInstanceOf(IllegalArgumentException.class);
+    }
 }
