@@ -8,6 +8,7 @@ public class Validator {
     private static final int MIN_DAY = 1;
     private static final int MAX_DAY = 31;
     private static final int MENU_INDEX = 0;
+    private static final String ORDER_FORMAT_REGEX = "^[가-힣]+-[0-9]+$";
 
     public static void validateInputIsNumeric(String input) {
         if (!input.matches(ONLY_NUMBER_REGEX)) {
@@ -37,6 +38,14 @@ public class Validator {
         }
         if (totalMenuCount < 1 || totalMenuCount > 20) {
             throw new IllegalArgumentException("주문 메뉴의 총 개수를 1 이상 20 이하로 입력해 주세요.");
+        }
+    }
+
+    public static void validateOrderFormat(String[] order) {
+        for (String orderFormat : order) {
+            if (!orderFormat.matches(ORDER_FORMAT_REGEX)) {
+                throw new IllegalArgumentException("[해산물파스타-2,레드와인-1,초코케이크-1] 형식으로 입력해 주세요.");
+            }
         }
     }
 
