@@ -49,8 +49,8 @@ public class Validator {
         }
     }
 
-    public static void validateOrderFormat(String[] order) {
-        for (String orderFormat : order) {
+    public static void validateOrderFormat(String[] separatedOrders) {
+        for (String orderFormat : separatedOrders) {
             if (!orderFormat.matches(ORDER_FORMAT_REGEX)) {
                 throw new IllegalArgumentException("[해산물파스타-2,레드와인-1,초코케이크-1] 형식으로 입력해 주세요.");
             }
@@ -68,4 +68,13 @@ public class Validator {
         }
     }
 
+    public static void validateOnlyBeverages(Map<Menu, Integer> order) {
+        Set<Menu> menu = order.keySet();
+        menu.remove(Menu.제로콜라);
+        menu.remove(Menu.레드와인);
+        menu.remove(Menu.샴페인);
+        if (menu.isEmpty()) {
+            throw new IllegalArgumentException("음료만 주문 시, 주문할 수 없습니다.");
+        }
+    }
 }
