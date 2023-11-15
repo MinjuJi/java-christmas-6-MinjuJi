@@ -19,13 +19,19 @@ public class Validator {
     private static final String ORDER_FORMAT_REGEX = "^[가-힣]+-[0-9]+$";
     private static final String MENU_AND_COUNT_DELIMITER = "\\s*-\\s*";
 
+    public static void validateDay(String day) {
+        validateInputIsNumeric(day);
+        validateDateInRange(day);
+    }
+
     public static void validateInputIsNumeric(String input) {
         if (!input.matches(ONLY_NUMBER_REGEX)) {
             throw new IllegalArgumentException("숫자만 입력해 주세요.");
         }
     }
 
-    public static void validateDataInRange(int day) {
+    public static void validateDateInRange(String input) {
+        int day = Integer.parseInt(input);
         if (day < MIN_DAY || day > MAX_DAY) {
             throw new IllegalArgumentException("방문 날짜를 1 이상 31 이하로 입력해 주세요.");
         }
@@ -73,7 +79,7 @@ public class Validator {
     }
 
     public static void validateOnlyBeverages(Map<Menu, Integer> order) {
-        Set<Menu> menu = order.keySet();
+        Set<Menu> menu = new HashSet<>(order.keySet());
         menu.remove(Menu.제로콜라);
         menu.remove(Menu.레드와인);
         menu.remove(Menu.샴페인);
