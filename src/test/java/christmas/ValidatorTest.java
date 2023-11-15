@@ -114,4 +114,24 @@ public class ValidatorTest {
         assertThat(result3).isInstanceOf(IllegalArgumentException.class);
         assertThat(result4).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("유효하지 않은 메뉴 형식으로 입력하면 예외를 발생시킨다.")
+    @Test
+    void 메뉴_형식_테스트() {
+        // given
+        String[] case1 = new String[]{"해산물파스타-2", "레드와인-1", "초코케이크-1"};
+        String[] case2 = new String[]{"해산물파스타/2", "레드와인/1", "초코케이크/1"};
+
+        // when
+        Throwable result1 = catchThrowable(() -> {
+            Validator.validateOrderFormat(case1);
+        });
+        Throwable result2 = catchThrowable(() -> {
+            Validator.validateOrderFormat(case2);
+        });
+
+        // then
+        assertThat(result1).doesNotThrowAnyException();
+        assertThat(result2).isInstanceOf(IllegalArgumentException.class);
+    }
 }
