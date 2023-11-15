@@ -25,9 +25,33 @@ public class Controller {
 
     private void reserve() {
         outputView.printWelcomeMessage();
-        int day = inputView.readDay();
-        Map<Menu, Integer> order = inputView.readMenu();
-        reservation = new Reservation(day, order);
+        int day = inputDay();
+        try {
+            Map<Menu, Integer> order = inputOrder();
+            reservation = new Reservation(day, order);
+        } catch (IllegalArgumentException error) {
+            System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            Map<Menu, Integer> order = inputOrder();
+            reservation = new Reservation(day, order);
+        }
+    }
+
+    private int inputDay() {
+        try {
+            return inputView.readDay();
+        } catch (IllegalArgumentException error) {
+            System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            return inputDay();
+        }
+    }
+
+    private Map<Menu, Integer> inputOrder() {
+        try {
+            return inputView.readOrder();
+        } catch (IllegalArgumentException error) {
+            System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            return inputOrder();
+        }
     }
 
     private void applyEvent() {

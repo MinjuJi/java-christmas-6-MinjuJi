@@ -35,27 +35,27 @@ public class ValidatorTest {
     @Test
     void 방문_날짜_범위_테스트() {
         // given
-        final int MIN_DAY = 1;
-        final int MAX_DAY = 31;
-        final int UNDER_MIN_DAY = 0;
-        final int ABOVE_MAX_DAY = 32;
-        int case1 = MIN_DAY;
-        int case2 = MAX_DAY;
-        int case3 = UNDER_MIN_DAY;
-        int case4 = ABOVE_MAX_DAY;
+        final String MIN_DAY = "1";
+        final String MAX_DAY = "31";
+        final String UNDER_MIN_DAY = "0";
+        final String ABOVE_MAX_DAY = "32";
+        String case1 = MIN_DAY;
+        String case2 = MAX_DAY;
+        String case3 = UNDER_MIN_DAY;
+        String case4 = ABOVE_MAX_DAY;
 
         // when
         Throwable result1 = catchThrowable(() -> {
-            Validator.validateDataInRange(case1);
+            Validator.validateDateInRange(case1);
         });
         Throwable result2 = catchThrowable(() -> {
-            Validator.validateDataInRange(case2);
+            Validator.validateDateInRange(case2);
         });
         Throwable result3 = catchThrowable(() -> {
-            Validator.validateDataInRange(case3);
+            Validator.validateDateInRange(case3);
         });
         Throwable result4 = catchThrowable(() -> {
-            Validator.validateDataInRange(case4);
+            Validator.validateDateInRange(case4);
         });
 
         // then
