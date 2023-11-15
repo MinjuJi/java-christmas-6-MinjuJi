@@ -134,4 +134,24 @@ public class ValidatorTest {
         assertThat(result1).doesNotThrowAnyException();
         assertThat(result2).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("중복된 메뉴를 입력하면 예외를 발생시킨다.")
+    @Test
+    void 중복_메뉴_테스트() {
+        // given
+        String[] case1 = new String[]{"해산물파스타-2", "레드와인-1", "초코케이크-1"};
+        String[] case2 = new String[]{"레드와인-2", "레드와인-1", "초코케이크-1"};
+
+        // when
+        Throwable result1 = catchThrowable(() -> {
+            Validator.validateDuplicatedMenu(case1);
+        });
+        Throwable result2 = catchThrowable(() -> {
+            Validator.validateDuplicatedMenu(case2);
+        });
+
+        // then
+        assertThat(result1).doesNotThrowAnyException();
+        assertThat(result2).isInstanceOf(IllegalArgumentException.class);
+    }
 }
