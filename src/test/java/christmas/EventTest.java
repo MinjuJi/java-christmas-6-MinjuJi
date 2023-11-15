@@ -46,11 +46,13 @@ public class EventTest {
         final int Friday = 30;
         final int WEEKDAY_DISCOUNT = 6_069;
         final int WEEKEND_DISCOUNT = 4_046;
+        final int ORDER_COUNT_THREE = 3;
+        final int ORDER_COUNT_TWO = 2;
+        final Map<Menu, Integer> order = new HashMap<>();
+        order.put(Menu.valueOf("초코케이크"), ORDER_COUNT_THREE);
+        order.put(Menu.valueOf("크리스마스파스타"), ORDER_COUNT_TWO);
         int case1 = THURSDAY;
         int case2 = Friday;
-        final Map<Menu, Integer> order = new HashMap<>();
-        order.put(Menu.valueOf("초코케이크"), 3);
-        order.put(Menu.valueOf("크리스마스파스타"), 2);
 
         // when
         int result1 = event.calculateWeekDiscount(case1, order);
@@ -93,10 +95,10 @@ public class EventTest {
         final boolean GIFT = true;
         final int ORDER_QUANTITY_TWO = 2;
         final int ORDER_QUANTITY_ONE = 1;
-        final Map<Menu, Integer> case1 = new HashMap<>();
+        Map<Menu, Integer> case1 = new HashMap<>();
         case1.put(Menu.valueOf("양송이수프"), ORDER_QUANTITY_TWO);
         case1.put(Menu.valueOf("티본스테이크"), ORDER_QUANTITY_ONE);
-        final Map<Menu, Integer> case2 = new HashMap<>();
+        Map<Menu, Integer> case2 = new HashMap<>();
         case2.put(Menu.valueOf("티본스테이크"), ORDER_QUANTITY_TWO);
         case2.put(Menu.valueOf("아이스크림"), ORDER_QUANTITY_TWO);
 
@@ -122,10 +124,10 @@ public class EventTest {
         final String STAR = "별";
         final String TREE = "트리";
         final String SANTA = "산타";
-        final int case1 = LESS_STAR;
-        final int case2 = MORE_STAR;
-        final int case3 = MORE_TREE;
-        final int case4 = MORE_SANTA;
+        int case1 = LESS_STAR;
+        int case2 = MORE_STAR;
+        int case3 = MORE_TREE;
+        int case4 = MORE_SANTA;
 
         // when
         Badge result1 = event.offerBadgeByTotalBenefit(case1, HAS_NOT_CHAMPAGNE);

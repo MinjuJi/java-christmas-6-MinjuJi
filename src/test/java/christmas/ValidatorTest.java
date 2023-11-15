@@ -35,10 +35,14 @@ public class ValidatorTest {
     @Test
     void 방문_날짜_범위_테스트() {
         // given
-        int case1 = 1;
-        int case2 = 31;
-        int case3 = 0;
-        int case4 = 32;
+        final int MIN_DAY = 1;
+        final int MAX_DAY = 31;
+        final int UNDER_MIN_DAY = 0;
+        final int ABOVE_MAX_DAY = 32;
+        int case1 = MIN_DAY;
+        int case2 = MAX_DAY;
+        int case3 = UNDER_MIN_DAY;
+        int case4 = ABOVE_MAX_DAY;
 
         // when
         Throwable result1 = catchThrowable(() -> {
@@ -85,14 +89,18 @@ public class ValidatorTest {
     @Test
     void 주문_메뉴_총_개수_테스트() {
         // given
+        final int MAX_TOTAL_MENU_COUNT = 20;
+        final int MIN_TOTAL_MENU_COUNT = 1;
+        final int ABOVE_MAX_TOTAL_MENU_COUNT = 21;
+        final int UNDER_MIN_TOTAL_MENU_COUNT = 0;
         Map<Menu, Integer> case1 = new HashMap<>();
-        case1.put(Menu.크리스마스파스타, 20);
+        case1.put(Menu.크리스마스파스타, MAX_TOTAL_MENU_COUNT);
         Map<Menu, Integer> case2 = new HashMap<>();
-        case2.put(Menu.크리스마스파스타, 1);
+        case2.put(Menu.크리스마스파스타, MIN_TOTAL_MENU_COUNT);
         Map<Menu, Integer> case3 = new HashMap<>();
-        case3.put(Menu.크리스마스파스타, 21);
+        case3.put(Menu.크리스마스파스타, ABOVE_MAX_TOTAL_MENU_COUNT);
         Map<Menu, Integer> case4 = new HashMap<>();
-        case4.put(Menu.크리스마스파스타, 0);
+        case4.put(Menu.크리스마스파스타, UNDER_MIN_TOTAL_MENU_COUNT);
 
         // when
         Throwable result1 = catchThrowable(() -> {
@@ -159,12 +167,13 @@ public class ValidatorTest {
     @Test
     void 음료만_주문_예외_테스트() {
         // given
+        final int ORDER_COUNT = 2;
         Map<Menu, Integer> case1 = new HashMap<>();
-        case1.put(Menu.크리스마스파스타, 5);
-        case1.put(Menu.샴페인, 1);
+        case1.put(Menu.크리스마스파스타, ORDER_COUNT);
+        case1.put(Menu.샴페인, ORDER_COUNT);
         Map<Menu, Integer> case2 = new HashMap<>();
-        case2.put(Menu.제로콜라, 4);
-        case2.put(Menu.레드와인, 1);
+        case2.put(Menu.제로콜라, ORDER_COUNT);
+        case2.put(Menu.레드와인, ORDER_COUNT);
 
         // when
         Throwable result1 = catchThrowable(() -> {
