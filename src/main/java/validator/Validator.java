@@ -1,7 +1,9 @@
 package validator;
 
 import domain.Menu;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import utils.Utils;
@@ -14,7 +16,6 @@ public class Validator {
     private static final int COUNT_ZERO = 0;
     private static final int MIN_TOTAL_MENU_COUNT = 1;
     private static final int MAX_TOTAL_MENU_COUNT = 20;
-
     private static final String ORDER_FORMAT_REGEX = "^[가-힣]+-[0-9]+$";
     private static final String MENU_AND_COUNT_DELIMITER = "\\s*-\\s*";
 
@@ -32,10 +33,13 @@ public class Validator {
 
     public static void validateExistingMenu(String[] menuAndCount) {
         String menuName = menuAndCount[MENU_INDEX];
+        List<String> existingMenu = new ArrayList<>();
         for (Menu menu : Menu.values()) {
-            if (!menu.name().equals(menuName)) {
-                throw new IllegalArgumentException("메뉴판에 있는 메뉴를 입력해 주세요.");
-            }
+            String existingMenuName = menu.name();
+            existingMenu.add(existingMenuName);
+        }
+        if (!existingMenu.contains(menuName)) {
+            throw new IllegalArgumentException("메뉴판에 있는 메뉴를 입력해 주세요.");
         }
     }
 
