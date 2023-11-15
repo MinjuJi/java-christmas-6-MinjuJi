@@ -1,14 +1,22 @@
 package validator;
 
 import domain.Menu;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import utils.Utils;
 
 public class Validator {
     private static final String ONLY_NUMBER_REGEX = "^[0-9]*$";
     private static final int MIN_DAY = 1;
     private static final int MAX_DAY = 31;
     private static final int MENU_INDEX = 0;
+    private static final int COUNT_ZERO = 0;
+    private static final int MIN_TOTAL_MENU_COUNT = 1;
+    private static final int MAX_TOTAL_MENU_COUNT = 20;
+
     private static final String ORDER_FORMAT_REGEX = "^[가-힣]+-[0-9]+$";
+    private static final String MENU_AND_COUNT_DELIMITER = "\\s*-\\s*";
 
     public static void validateInputIsNumeric(String input) {
         if (!input.matches(ONLY_NUMBER_REGEX)) {
@@ -32,11 +40,11 @@ public class Validator {
     }
 
     public static void validateMenuCountInRange(Map<Menu, Integer> order) {
-        int totalMenuCount = 0;
+        int totalMenuCount = COUNT_ZERO;
         for (Map.Entry<Menu, Integer> menuCount : order.entrySet()) {
             totalMenuCount += menuCount.getValue();
         }
-        if (totalMenuCount < 1 || totalMenuCount > 20) {
+        if (totalMenuCount < MIN_TOTAL_MENU_COUNT || totalMenuCount > MAX_TOTAL_MENU_COUNT) {
             throw new IllegalArgumentException("주문 메뉴의 총 개수를 1 이상 20 이하로 입력해 주세요.");
         }
     }
@@ -46,6 +54,17 @@ public class Validator {
             if (!orderFormat.matches(ORDER_FORMAT_REGEX)) {
                 throw new IllegalArgumentException("[해산물파스타-2,레드와인-1,초코케이크-1] 형식으로 입력해 주세요.");
             }
+        }
+    }
+
+    public static void validateDuplicatedMenu(String[] separatedOrders) {
+        Set<String> menu = new HashSet<>();
+        for (String separatedOrder : separatedOrders) {
+            String[] menuAndCount = Utils.splitInput(separatedOrder, MENU_AND_COUNT_DELIMITER);
+            menu.add(menuAndCount[MENU_INDEX]);
+        }
+        if (separatedOrders.length != menu.size()) {
+            throw new IllegalArgumentException("메뉴를 중복되지 않게 입력해 주세요");
         }
     }
 
