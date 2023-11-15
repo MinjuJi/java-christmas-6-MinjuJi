@@ -27,4 +27,34 @@ public class ValidatorTest {
         assertThat(result1).doesNotThrowAnyException();
         assertThat(result2).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("방문할 날짜가 1 이상 31 이하의 범위가 아니면 예외를 발생시킨다.")
+    @Test
+    void 방문_날짜_범위_테스트() {
+        // given
+        int case1 = 1;
+        int case2 = 31;
+        int case3 = 0;
+        int case4 = 32;
+
+        // when
+        Throwable result1 = catchThrowable(() -> {
+            Validator.validateDataInRange(case1);
+        });
+        Throwable result2 = catchThrowable(() -> {
+            Validator.validateDataInRange(case2);
+        });
+        Throwable result3 = catchThrowable(() -> {
+            Validator.validateDataInRange(case3);
+        });
+        Throwable result4 = catchThrowable(() -> {
+            Validator.validateDataInRange(case4);
+        });
+
+        // then
+        assertThat(result1).doesNotThrowAnyException();
+        assertThat(result2).doesNotThrowAnyException();
+        assertThat(result3).isInstanceOf(IllegalArgumentException.class);
+        assertThat(result4).isInstanceOf(IllegalArgumentException.class);
+    }
 }
